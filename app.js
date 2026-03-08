@@ -1,8 +1,13 @@
-// DATE DISPLAY
+// WAIT UNTIL PAGE LOADS
+
+document.addEventListener("DOMContentLoaded", function(){
 
 document.getElementById("date").innerText =
 new Date().toDateString();
 
+updateChart();
+
+});
 
 // TAB NAVIGATION
 
@@ -14,7 +19,6 @@ document.querySelectorAll(".tab")
 document.getElementById(tab).style.display="block";
 
 }
-
 
 // WORKOUT GENERATOR
 
@@ -33,12 +37,11 @@ workoutList.innerHTML="";
 container.innerHTML="";
 
 let exercises=[];
-let workoutTitle="";
-
+let title="";
 
 if(day===1){
 
-workoutTitle="Chest & Back";
+title="Chest & Back";
 
 exercises=[
 "Incline Bench Press",
@@ -53,7 +56,7 @@ exercises=[
 
 else if(day===2){
 
-workoutTitle="Shoulders & Arms";
+title="Shoulders & Arms";
 
 exercises=[
 "Shoulder Press",
@@ -68,7 +71,7 @@ exercises=[
 
 else if(day===3){
 
-workoutTitle="Leg Day";
+title="Leg Day";
 
 exercises=[
 "Leg Press",
@@ -84,20 +87,18 @@ exercises=[
 else{
 
 workoutList.innerHTML="<li>Rest Day</li>";
-
-container.innerHTML="<p>Recovery day.</p>";
+container.innerHTML="<p>Recovery day</p>";
 
 localStorage.setItem("workoutDay",1);
-
 return;
 
 }
 
-workoutList.innerHTML=`<li><strong>${workoutTitle}</strong></li>`;
+workoutList.innerHTML=`<li><strong>${title}</strong></li>`;
 
 exercises.forEach(exercise=>{
 
-let previousWeight =
+let prevWeight =
 localStorage.getItem(exercise) || "";
 
 container.innerHTML +=
@@ -106,7 +107,7 @@ container.innerHTML +=
 
 <h3>${exercise}</h3>
 
-<input id="${exercise}" placeholder="Weight" value="${previousWeight}">
+<input id="${exercise}" placeholder="Weight" value="${prevWeight}">
 
 <input placeholder="Reps">
 
@@ -122,8 +123,7 @@ localStorage.setItem("workoutDay",day);
 
 }
 
-
-// PROGRESSIVE OVERLOAD TRACKING
+// SAVE LIFT
 
 function logLift(exercise){
 
@@ -148,8 +148,7 @@ localStorage.setItem(exercise,newWeight);
 
 }
 
-
-// WEIGHT TRACKER
+// ADD WEIGHT ENTRY
 
 function addWeight(){
 
@@ -164,7 +163,7 @@ JSON.parse(localStorage.getItem("weights") || "[]");
 let dates =
 JSON.parse(localStorage.getItem("dates") || "[]");
 
-weights.push(weight);
+weights.push(parseFloat(weight));
 
 let today =
 new Date().toLocaleDateString();
@@ -174,14 +173,15 @@ dates.push(today);
 localStorage.setItem("weights",JSON.stringify(weights));
 localStorage.setItem("dates",JSON.stringify(dates));
 
+document.getElementById("weightEntry").value="";
+
 updateChart();
 
-document.getElementById("weightEntry").value="";
+predictGoal();
 
 }
 
-
-// WEIGHT GRAPH
+// UPDATE GRAPH
 
 function updateChart(){
 
@@ -194,7 +194,7 @@ JSON.parse(localStorage.getItem("dates") || "[]");
 const ctx =
 document.getElementById("progressChart");
 
-if(!ctx) return;
+if(!ctx || weights.length===0) return;
 
 new Chart(ctx,{
 
@@ -229,12 +229,8 @@ legend:{display:false}
 },
 
 scales:{
-y:{
-ticks:{color:'white'}
-},
-x:{
-ticks:{color:'white'}
-}
+y:{ticks:{color:'white'}},
+x:{ticks:{color:'white'}}
 }
 
 }
@@ -243,7 +239,48 @@ ticks:{color:'white'}
 
 }
 
+// GOAL PREDICTION
 
-// LOAD GRAPH WHEN APP OPENS
+function predictGoal(){
 
-updateChart();
+let weights =
+JSON.parse(localStorage.getItem("weights") || "[]");
+
+if(weights.length < 2) return;
+
+let start =
+weights[0];
+
+let latest =
+weights[weights.length-1];
+
+let change =
+start - latest;
+
+let weeks =
+weights.length;
+
+let weeklyLoss =
+change / weeks;
+
+if(weeklyLoss <= 0) return;
+
+let goal = 247;
+
+let remaining =
+latest - goal;
+
+let weeksLeft =
+Math.ceil(remaining / weeklyLoss);
+
+let result =
+document.getElementById("goalPrediction");
+
+if(result){
+
+result.innerText =
+"Estimated goal in " + weeksLeft + " weeks";
+
+}
+
+}
