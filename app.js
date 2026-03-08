@@ -220,3 +220,31 @@ localStorage.setItem(exercise,newWeight)
 }
 
 }
+function addWeight(){
+
+let weight =
+document.getElementById("weightEntry").value
+
+if(!weight) return
+
+let weights =
+JSON.parse(localStorage.getItem("weights") || "[]")
+
+let dates =
+JSON.parse(localStorage.getItem("dates") || "[]")
+
+weights.push(weight)
+
+let today =
+new Date().toLocaleDateString()
+
+dates.push(today)
+
+localStorage.setItem("weights",JSON.stringify(weights))
+localStorage.setItem("dates",JSON.stringify(dates))
+
+updateChart()
+
+document.getElementById("weightEntry").value=""
+
+}
