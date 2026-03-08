@@ -52,7 +52,36 @@ document.querySelectorAll(".tab")
 .forEach(t => t.style.display="none");
 
 document.getElementById(tab).style.display="block";
+function generateWorkout(){
 
+let container =
+document.getElementById("exerciseList");
+
+container.innerHTML="";
+
+for(let i=0;i<4;i++){
+
+let exercise =
+exercises[Math.floor(Math.random()*exercises.length)];
+
+container.innerHTML +=
+`
+<div class="card">
+
+<h3>${exercise}</h3>
+
+<input placeholder="Weight">
+
+<input placeholder="Reps">
+
+<button>Log Set</button>
+
+</div>
+`;
+
+}
+
+}
 }
 
 const ctx =
