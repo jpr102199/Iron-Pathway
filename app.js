@@ -110,3 +110,19 @@ data:[377,372,368]
 });
 
 }
+let streak =
+localStorage.getItem("streak") || 0;
+
+document.getElementById("streak")
+.innerText = streak + " Days";
+
+function completeWorkout(){
+
+streak++;
+
+localStorage.setItem("streak",streak);
+
+document.getElementById("streak")
+.innerText = streak + " Days";
+
+}
