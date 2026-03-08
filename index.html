@@ -1,10 +1,32 @@
-<div id="dashboard" class="tab">
+<!DOCTYPE html>
+<html>
+<head>
 
-<div class="big-card">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Iron Pathway</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+<h1>🛡 Iron Pathway</h1>
+<p id="date"></p>
+</header>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="tab">
+
+<div class="hero-card">
 
 <h2>🔥 Workout Streak</h2>
-
-<p id="streak">4 Days</p>
+<p id="streak">0</p>
 
 </div>
 
@@ -14,7 +36,7 @@
 
 <h3>⚖ Weight</h3>
 
-<input id="weight" placeholder="Enter weight">
+<input id="weightInput" placeholder="Enter weight">
 
 <button onclick="saveWeight()">Save</button>
 
@@ -24,9 +46,9 @@
 
 <h3>🍗 Protein</h3>
 
-<input id="protein" placeholder="Protein grams">
+<input id="proteinInput" placeholder="Protein grams">
 
-<button onclick="saveStats()">Save</button>
+<button onclick="saveProtein()">Save</button>
 
 </div>
 
@@ -34,29 +56,62 @@
 
 <div class="card">
 
-<h2>🏋 Today's Workout</h2>
+<h2>Today's Workout</h2>
 
-<ul>
-
-<li>Lat Pulldown</li>
-<li>Seated Row</li>
-<li>Back Extensions</li>
-<li>Face Pulls</li>
-<li>10 min Stairmaster</li>
-
-</ul>
-
-<button onclick="startWorkout()">Start Workout</button>
-
-</div>
-
-</div>
-<div id="workout" class="tab" style="display:none">
-
-<h2>Workout Logger</h2>
-
-<div id="exerciseList"></div>
+<ul id="todayWorkout"></ul>
 
 <button onclick="generateWorkout()">Generate Workout</button>
 
 </div>
+
+</section>
+
+<!-- WORKOUT TAB -->
+
+<section id="workout" class="tab" style="display:none">
+
+<h2>Workout Logger</h2>
+
+<div id="exerciseContainer"></div>
+
+</section>
+
+<!-- NUTRITION TAB -->
+
+<section id="nutrition" class="tab" style="display:none">
+
+<div class="card">
+
+<h2>Nutrition</h2>
+
+<input id="caloriesInput" placeholder="Calories">
+
+<button onclick="saveCalories()">Save</button>
+
+</div>
+
+</section>
+
+<!-- PROGRESS TAB -->
+
+<section id="progress" class="tab" style="display:none">
+
+<h2>Weight Progress</h2>
+
+<canvas id="progressChart"></canvas>
+
+</section>
+
+<nav class="bottomNav">
+
+<button onclick="showTab('dashboard')">Home</button>
+<button onclick="showTab('workout')">Workout</button>
+<button onclick="showTab('nutrition')">Nutrition</button>
+<button onclick="showTab('progress')">Progress</button>
+
+</nav>
+
+<script src="app.js"></script>
+
+</body>
+</html>
