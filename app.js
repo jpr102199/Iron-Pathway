@@ -172,28 +172,34 @@ localStorage.setItem("calories",calories)
 
 }
 
-function updateChart(){
+function addWeight(){
+
+let weight =
+document.getElementById("weightEntry").value
+
+if(!weight) return
 
 let weights =
 JSON.parse(localStorage.getItem("weights") || "[]")
 
-const ctx =
-document.getElementById("progressChart")
+let dates =
+JSON.parse(localStorage.getItem("dates") || "[]")
 
-new Chart(ctx,{
-type:'line',
-data:{
-labels:weights.map((_,i)=>`Entry ${i+1}`),
-datasets:[{
-label:'Weight',
-data:weights
-}]
-}
-})
+weights.push(weight)
 
-}
+let today =
+new Date().toLocaleDateString()
+
+dates.push(today)
+
+localStorage.setItem("weights",JSON.stringify(weights))
+localStorage.setItem("dates",JSON.stringify(dates))
 
 updateChart()
+
+document.getElementById("weightEntry").value=""
+
+}
 function logLift(exercise){
 
 let weight =
