@@ -1,47 +1,44 @@
-document.getElementById("date").innerText =
-new Date().toDateString()
+// DATE DISPLAY
 
-const exercises = [
-"Lat Pulldown",
-"Seated Row",
-"Back Extension",
-"Face Pull",
-"Leg Press",
-"Hamstring Curl",
-"Chest Press",
-"Shoulder Press"
-]
+document.getElementById("date").innerText =
+new Date().toDateString();
+
+
+// TAB NAVIGATION
 
 function showTab(tab){
 
 document.querySelectorAll(".tab")
-.forEach(t => t.style.display="none")
+.forEach(t => t.style.display="none");
 
-document.getElementById(tab).style.display="block"
+document.getElementById(tab).style.display="block";
 
 }
+
+
+// WORKOUT GENERATOR
 
 function generateWorkout(){
 
 let day =
-parseInt(localStorage.getItem("workoutDay")) || 1
+parseInt(localStorage.getItem("workoutDay")) || 1;
 
 const workoutList =
-document.getElementById("todayWorkout")
+document.getElementById("todayWorkout");
 
 const container =
-document.getElementById("exerciseContainer")
+document.getElementById("exerciseContainer");
 
-workoutList.innerHTML=""
-container.innerHTML=""
+workoutList.innerHTML="";
+container.innerHTML="";
 
-let exercises=[]
+let exercises=[];
+let workoutTitle="";
 
-let workoutTitle=""
 
 if(day===1){
 
-workoutTitle="Chest & Back"
+workoutTitle="Chest & Back";
 
 exercises=[
 "Incline Bench Press",
@@ -50,13 +47,13 @@ exercises=[
 "Lat Pulldown",
 "Seated Cable Row",
 "Back Extension"
-]
+];
 
 }
 
 else if(day===2){
 
-workoutTitle="Shoulders & Arms"
+workoutTitle="Shoulders & Arms";
 
 exercises=[
 "Shoulder Press",
@@ -65,13 +62,13 @@ exercises=[
 "Barbell Curl",
 "Hammer Curl",
 "Tricep Pushdown"
-]
+];
 
 }
 
 else if(day===3){
 
-workoutTitle="Leg Day"
+workoutTitle="Leg Day";
 
 exercises=[
 "Leg Press",
@@ -80,28 +77,28 @@ exercises=[
 "Standing Calf Raise",
 "Glute Bridge",
 "Back Extension"
-]
+];
 
 }
 
 else{
 
-workoutList.innerHTML="<li>Rest Day</li>"
+workoutList.innerHTML="<li>Rest Day</li>";
 
-container.innerHTML="<p>Recovery day. Let your body grow.</p>"
+container.innerHTML="<p>Recovery day.</p>";
 
-localStorage.setItem("workoutDay",1)
+localStorage.setItem("workoutDay",1);
 
-return
+return;
 
 }
 
-workoutList.innerHTML=`<li><strong>${workoutTitle}</strong></li>`
+workoutList.innerHTML=`<li><strong>${workoutTitle}</strong></li>`;
 
 exercises.forEach(exercise=>{
 
 let previousWeight =
-localStorage.getItem(exercise) || ""
+localStorage.getItem(exercise) || "";
 
 container.innerHTML +=
 
@@ -115,143 +112,138 @@ container.innerHTML +=
 
 <button onclick="logLift('${exercise}')">Save Lift</button>
 
-</div>`
+</div>`;
 
-})
+});
 
-day++
+day++;
 
-localStorage.setItem("workoutDay",day)
-
-}
-
-function completeSet(){
-
-let streak =
-localStorage.getItem("streak") || 0
-
-streak++
-
-localStorage.setItem("streak",streak)
-
-document.getElementById("streak").innerText=streak
+localStorage.setItem("workoutDay",day);
 
 }
 
-function saveWeight(){
 
-let weight =
-document.getElementById("weightInput").value
+// PROGRESSIVE OVERLOAD TRACKING
 
-let weights =
-JSON.parse(localStorage.getItem("weights") || "[]")
-
-weights.push(weight)
-
-localStorage.setItem("weights",JSON.stringify(weights))
-
-updateChart()
-
-}
-
-function saveProtein(){
-
-let protein =
-document.getElementById("proteinInput").value
-
-localStorage.setItem("protein",protein)
-
-}
-
-function saveCalories(){
-
-let calories =
-document.getElementById("caloriesInput").value
-
-localStorage.setItem("calories",calories)
-
-}
-
-function addWeight(){
-
-let weight =
-document.getElementById("weightEntry").value
-
-if(!weight) return
-
-let weights =
-JSON.parse(localStorage.getItem("weights") || "[]")
-
-let dates =
-JSON.parse(localStorage.getItem("dates") || "[]")
-
-weights.push(weight)
-
-let today =
-new Date().toLocaleDateString()
-
-dates.push(today)
-
-localStorage.setItem("weights",JSON.stringify(weights))
-localStorage.setItem("dates",JSON.stringify(dates))
-
-updateChart()
-
-document.getElementById("weightEntry").value=""
-
-}
 function logLift(exercise){
 
 let weight =
-document.getElementById(exercise).value
+document.getElementById(exercise).value;
 
-if(!weight) return
+if(!weight) return;
 
 let previous =
-parseFloat(localStorage.getItem(exercise)) || 0
+parseFloat(localStorage.getItem(exercise)) || 0;
 
 let newWeight =
-parseFloat(weight)
+parseFloat(weight);
 
 if(newWeight > previous){
 
-localStorage.setItem(exercise,newWeight)
-
-alert("New Personal Best 💪")
-
-}else{
-
-localStorage.setItem(exercise,newWeight)
+alert("New Personal Record 💪");
 
 }
 
+localStorage.setItem(exercise,newWeight);
+
 }
+
+
+// WEIGHT TRACKER
+
 function addWeight(){
 
 let weight =
-document.getElementById("weightEntry").value
+document.getElementById("weightEntry").value;
 
-if(!weight) return
+if(!weight) return;
 
 let weights =
-JSON.parse(localStorage.getItem("weights") || "[]")
+JSON.parse(localStorage.getItem("weights") || "[]");
 
 let dates =
-JSON.parse(localStorage.getItem("dates") || "[]")
+JSON.parse(localStorage.getItem("dates") || "[]");
 
-weights.push(weight)
+weights.push(weight);
 
 let today =
-new Date().toLocaleDateString()
+new Date().toLocaleDateString();
 
-dates.push(today)
+dates.push(today);
 
-localStorage.setItem("weights",JSON.stringify(weights))
-localStorage.setItem("dates",JSON.stringify(dates))
+localStorage.setItem("weights",JSON.stringify(weights));
+localStorage.setItem("dates",JSON.stringify(dates));
 
-updateChart()
+updateChart();
 
-document.getElementById("weightEntry").value=""
+document.getElementById("weightEntry").value="";
 
 }
 
+
+// WEIGHT GRAPH
+
+function updateChart(){
+
+let weights =
+JSON.parse(localStorage.getItem("weights") || "[]");
+
+let dates =
+JSON.parse(localStorage.getItem("dates") || "[]");
+
+const ctx =
+document.getElementById("progressChart");
+
+if(!ctx) return;
+
+new Chart(ctx,{
+
+type:'line',
+
+data:{
+
+labels:dates,
+
+datasets:[{
+
+label:'Body Weight',
+
+data:weights,
+
+borderColor:'#2f6df6',
+
+backgroundColor:'rgba(47,109,246,0.3)',
+
+fill:true,
+
+tension:0.3
+
+}]
+
+},
+
+options:{
+
+plugins:{
+legend:{display:false}
+},
+
+scales:{
+y:{
+ticks:{color:'white'}
+},
+x:{
+ticks:{color:'white'}
+}
+}
+
+}
+
+});
+
+}
+
+
+// LOAD GRAPH WHEN APP OPENS
+
+updateChart();
