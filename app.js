@@ -1,3 +1,15 @@
+const exercises = [
+
+"Lat Pulldown",
+"Seated Row",
+"Back Extension",
+"Face Pull",
+"Leg Press",
+"Hamstring Curl",
+"Chest Press",
+"Shoulder Press"
+
+];
 document.getElementById("date").innerText =
 new Date().toDateString();
 
