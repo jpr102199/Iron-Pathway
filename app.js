@@ -1,5 +1,7 @@
-const exercises = [
+document.getElementById("date").innerText =
+new Date().toDateString()
 
+const exercises = [
 "Lat Pulldown",
 "Seated Row",
 "Back Extension",
@@ -8,64 +10,37 @@ const exercises = [
 "Hamstring Curl",
 "Chest Press",
 "Shoulder Press"
-
-];
-document.getElementById("date").innerText =
-new Date().toDateString();
-
-function startWorkout(){
-
-alert("Workout Started 💪");
-
-}
-
-function saveWeight(){
-
-let weight =
-document.getElementById("weight").value;
-
-localStorage.setItem("weight",weight);
-
-alert("Weight Saved");
-
-}
-
-function saveStats(){
-
-let calories =
-document.getElementById("calories").value;
-
-let protein =
-document.getElementById("protein").value;
-
-localStorage.setItem("calories",calories);
-
-localStorage.setItem("protein",protein);
-
-alert("Stats Saved");
-
-}
+]
 
 function showTab(tab){
 
 document.querySelectorAll(".tab")
-.forEach(t => t.style.display="none");
+.forEach(t => t.style.display="none")
 
-document.getElementById(tab).style.display="block";
+document.getElementById(tab).style.display="block"
+
+}
+
 function generateWorkout(){
 
-let container =
-document.getElementById("exerciseList");
+const workoutList =
+document.getElementById("todayWorkout")
 
-container.innerHTML="";
+const container =
+document.getElementById("exerciseContainer")
+
+workoutList.innerHTML=""
+container.innerHTML=""
 
 for(let i=0;i<4;i++){
 
 let exercise =
-exercises[Math.floor(Math.random()*exercises.length)];
+exercises[Math.floor(Math.random()*exercises.length)]
 
-container.innerHTML +=
-`
+workoutList.innerHTML+=`<li>${exercise}</li>`
+
+container.innerHTML+=`
+
 <div class="card">
 
 <h3>${exercise}</h3>
@@ -74,55 +49,82 @@ container.innerHTML +=
 
 <input placeholder="Reps">
 
-<button>Log Set</button>
+<button onclick="completeSet()">Log Set</button>
 
 </div>
-`;
+
+`
 
 }
 
 }
+
+function completeSet(){
+
+let streak =
+localStorage.getItem("streak") || 0
+
+streak++
+
+localStorage.setItem("streak",streak)
+
+document.getElementById("streak").innerText=streak
+
 }
+
+function saveWeight(){
+
+let weight =
+document.getElementById("weightInput").value
+
+let weights =
+JSON.parse(localStorage.getItem("weights") || "[]")
+
+weights.push(weight)
+
+localStorage.setItem("weights",JSON.stringify(weights))
+
+updateChart()
+
+}
+
+function saveProtein(){
+
+let protein =
+document.getElementById("proteinInput").value
+
+localStorage.setItem("protein",protein)
+
+}
+
+function saveCalories(){
+
+let calories =
+document.getElementById("caloriesInput").value
+
+localStorage.setItem("calories",calories)
+
+}
+
+function updateChart(){
+
+let weights =
+JSON.parse(localStorage.getItem("weights") || "[]")
 
 const ctx =
-document.getElementById('weightChart');
-
-if(ctx){
+document.getElementById("progressChart")
 
 new Chart(ctx,{
-
 type:'line',
-
 data:{
-
-labels:['Week1','Week2','Week3'],
-
+labels:weights.map((_,i)=>`Entry ${i+1}`),
 datasets:[{
-
 label:'Weight',
-
-data:[377,372,368]
-
+data:weights
 }]
+}
+})
 
 }
 
-});
-
-}
-let streak =
-localStorage.getItem("streak") || 0;
-
-document.getElementById("streak")
-.innerText = streak + " Days";
-
-function completeWorkout(){
-
-streak++;
-
-localStorage.setItem("streak",streak);
-
-document.getElementById("streak")
-.innerText = streak + " Days";
-
-}
+updateChart()
