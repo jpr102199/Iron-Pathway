@@ -23,6 +23,9 @@ document.getElementById(tab).style.display="block"
 
 function generateWorkout(){
 
+let day =
+localStorage.getItem("workoutDay") || 1
+
 const workoutList =
 document.getElementById("todayWorkout")
 
@@ -32,16 +35,68 @@ document.getElementById("exerciseContainer")
 workoutList.innerHTML=""
 container.innerHTML=""
 
-for(let i=0;i<4;i++){
+let exercises=[]
 
-let exercise =
-exercises[Math.floor(Math.random()*exercises.length)]
+if(day==1){
 
-workoutList.innerHTML+=`<li>${exercise}</li>`
+exercises=[
+"Incline Bench Press",
+"Flat Dumbbell Press",
+"Chest Fly",
+"Lat Pulldown",
+"Seated Cable Row",
+"Back Extension"
+]
 
-container.innerHTML+=`
+}
 
-<div class="card">
+if(day==2){
+
+exercises=[
+"Shoulder Press",
+"Lateral Raise",
+"Rear Delt Fly",
+"Barbell Curl",
+"Hammer Curl",
+"Tricep Pushdown"
+]
+
+}
+
+if(day==3){
+
+exercises=[
+"Leg Press",
+"Hamstring Curl",
+"Leg Extension",
+"Calf Raises",
+"Glute Bridge",
+"Back Extension"
+]
+
+}
+
+if(day==4){
+
+workoutList.innerHTML="<li>Rest Day</li>"
+
+container.innerHTML="<p>Recovery Day</p>"
+
+day=1
+
+localStorage.setItem("workoutDay",day)
+
+return
+
+}
+
+exercises.forEach(exercise=>{
+
+workoutList.innerHTML += `<li>${exercise}</li>`
+
+container.innerHTML +=
+
+`<div class="exercise-card">
 
 <h3>${exercise}</h3>
 
@@ -49,13 +104,15 @@ container.innerHTML+=`
 
 <input placeholder="Reps">
 
-<button onclick="completeSet()">Log Set</button>
+<button onclick="completeSet()">Complete Set</button>
 
-</div>
+</div>`
 
-`
+})
 
-}
+day++
+
+localStorage.setItem("workoutDay",day)
 
 }
 
