@@ -24,7 +24,7 @@ document.getElementById(tab).style.display="block"
 function generateWorkout(){
 
 let day =
-localStorage.getItem("workoutDay") || 1
+parseInt(localStorage.getItem("workoutDay")) || 1
 
 const workoutList =
 document.getElementById("todayWorkout")
@@ -37,7 +37,11 @@ container.innerHTML=""
 
 let exercises=[]
 
-if(day==1){
+let workoutTitle=""
+
+if(day===1){
+
+workoutTitle="Chest & Back"
 
 exercises=[
 "Incline Bench Press",
@@ -50,7 +54,9 @@ exercises=[
 
 }
 
-if(day==2){
+else if(day===2){
+
+workoutTitle="Shoulders & Arms"
 
 exercises=[
 "Shoulder Press",
@@ -63,36 +69,39 @@ exercises=[
 
 }
 
-if(day==3){
+else if(day===3){
+
+workoutTitle="Leg Day"
 
 exercises=[
 "Leg Press",
 "Hamstring Curl",
 "Leg Extension",
-"Calf Raises",
+"Standing Calf Raise",
 "Glute Bridge",
 "Back Extension"
 ]
 
 }
 
-if(day==4){
+else{
 
 workoutList.innerHTML="<li>Rest Day</li>"
 
-container.innerHTML="<p>Recovery Day</p>"
+container.innerHTML="<p>Recovery day. Let your body grow.</p>"
 
-day=1
-
-localStorage.setItem("workoutDay",day)
+localStorage.setItem("workoutDay",1)
 
 return
 
 }
 
+workoutList.innerHTML=`<li><strong>${workoutTitle}</strong></li>`
+
 exercises.forEach(exercise=>{
 
-workoutList.innerHTML += `<li>${exercise}</li>`
+let previousWeight =
+localStorage.getItem(exercise) || ""
 
 container.innerHTML +=
 
@@ -100,11 +109,11 @@ container.innerHTML +=
 
 <h3>${exercise}</h3>
 
-<input placeholder="Weight">
+<input id="${exercise}" placeholder="Weight" value="${previousWeight}">
 
 <input placeholder="Reps">
 
-<button onclick="completeSet()">Complete Set</button>
+<button onclick="logLift('${exercise}')">Save Lift</button>
 
 </div>`
 
