@@ -1,45 +1,34 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Iron Pathway</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-</head>
-
-<body>
-
-<header class="header">
-
-<h1>🛡 Iron Pathway</h1>
-
-<p id="date"></p>
-
-</header>
-
 <div id="dashboard" class="tab">
 
-<div class="card">
+<div class="big-card">
 
 <h2>🔥 Workout Streak</h2>
 
-<p id="streak">0 days</p>
+<p id="streak">4 Days</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>⚖ Weight</h3>
+
+<input id="weight" placeholder="Enter weight">
+
+<button onclick="saveWeight()">Save</button>
 
 </div>
 
 <div class="card">
 
-<h2>⚖ Weight</h2>
+<h3>🍗 Protein</h3>
 
-<input id="weight" placeholder="Enter weight">
+<input id="protein" placeholder="Protein grams">
 
-<button onclick="saveWeight()">Save Weight</button>
+<button onclick="saveStats()">Save</button>
+
+</div>
 
 </div>
 
@@ -50,13 +39,9 @@
 <ul>
 
 <li>Lat Pulldown</li>
-
 <li>Seated Row</li>
-
 <li>Back Extensions</li>
-
 <li>Face Pulls</li>
-
 <li>10 min Stairmaster</li>
 
 </ul>
@@ -66,63 +51,3 @@
 </div>
 
 </div>
-
-<div id="workout" class="tab" style="display:none">
-
-<h2>Workout Logger</h2>
-
-<div class="card">
-
-<h3>Lat Pulldown</h3>
-
-<input placeholder="Weight">
-
-<input placeholder="Reps">
-
-<button>Log Set</button>
-
-</div>
-
-</div>
-
-<div id="nutrition" class="tab" style="display:none">
-
-<div class="card">
-
-<h2>Nutrition</h2>
-
-<input id="calories" placeholder="Calories">
-
-<input id="protein" placeholder="Protein">
-
-<button onclick="saveStats()">Save</button>
-
-</div>
-
-</div>
-
-<div id="progress" class="tab" style="display:none">
-
-<h2>Progress</h2>
-
-<canvas id="weightChart"></canvas>
-
-</div>
-
-<nav class="bottom-nav">
-
-<button onclick="showTab('workout')">Workout</button>
-
-<button onclick="showTab('nutrition')">Nutrition</button>
-
-<button onclick="showTab('dashboard')">Dashboard</button>
-
-<button onclick="showTab('progress')">Progress</button>
-
-</nav>
-
-<script src="app.js"></script>
-
-</body>
-
-</html>
