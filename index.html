@@ -94,9 +94,26 @@
 </div>
 
 </section>
-
 <!-- PROGRESS -->
+<section id="progress" class="tab" style="display:none">
 
+<h2>Weight Tracker</h2>
+
+<div class="card">
+
+<input id="weightEntry" placeholder="Enter today's weight">
+
+<button onclick="addWeight()">Add Weight</button>
+
+</div>my
+
+<div class="card">
+
+<canvas id="progressChart"></canvas>
+
+</div>
+
+</section>
 <section id="progress" class="tab" style="display:none">
 
 <h2>Weight Progress</h2>
@@ -110,11 +127,4 @@
 <button onclick="showTab('dashboard')">Home</button>
 <button onclick="showTab('workout')">Workout</button>
 <button onclick="showTab('nutrition')">Nutrition</button>
-<button onclick="showTab('progress')">Progress</button>
-
-</nav>
-
-<script src="app.js"></script>
-
-</body>
-</html>
+<button oncli
