@@ -1,0 +1,15 @@
+<div id="dashboard" class="tab">
+<h2>Dashboard</h2>
+</div>
+
+<div id="workout" class="tab">
+<h2>Workout</h2>
+</div>
+
+<div id="nutrition" class="tab">
+<h2>Nutrition</h2>
+</div>
+
+<div id="progress" class="tab">
+<h2>Progress</h2>
+</div>
