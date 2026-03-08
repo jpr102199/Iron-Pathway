@@ -7,10 +7,21 @@ color:white;
 
 .header{
 padding:20px;
-font-size:22px;
+text-align:center;
 }
 
-.dashboard{
+.hero-card{
+background:#2f6df6;
+padding:30px;
+margin:15px;
+border-radius:16px;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 padding:10px;
 }
 
@@ -19,15 +30,6 @@ background:#1e1e1e;
 padding:20px;
 margin:15px;
 border-radius:12px;
-}
-
-button{
-background:#2f6df6;
-border:none;
-color:white;
-padding:12px;
-border-radius:8px;
-margin-top:10px;
 }
 
 input{
@@ -38,7 +40,17 @@ border-radius:8px;
 border:none;
 }
 
-.bottom-nav{
+button{
+background:#2f6df6;
+border:none;
+padding:12px;
+border-radius:8px;
+color:white;
+margin-top:10px;
+width:100%;
+}
+
+.bottomNav{
 position:fixed;
 bottom:0;
 width:100%;
@@ -47,38 +59,10 @@ display:flex;
 justify-content:space-around;
 padding:10px;
 }
-.big-card{
 
-background:#2f6df6;
-
-padding:30px;
-
-margin:15px;
-
-border-radius:16px;
-
-font-size:20px;
-
-}
-
-.grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-padding:10px;
-
-}
-
-.card{
-
-background:#1e1e1e;
-
-padding:20px;
-
-border-radius:12px;
-
+.bottomNav button{
+background:none;
+border:none;
+color:white;
+font-size:16px;
 }
