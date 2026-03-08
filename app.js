@@ -194,3 +194,29 @@ data:weights
 }
 
 updateChart()
+function logLift(exercise){
+
+let weight =
+document.getElementById(exercise).value
+
+if(!weight) return
+
+let previous =
+parseFloat(localStorage.getItem(exercise)) || 0
+
+let newWeight =
+parseFloat(weight)
+
+if(newWeight > previous){
+
+localStorage.setItem(exercise,newWeight)
+
+alert("New Personal Best 💪")
+
+}else{
+
+localStorage.setItem(exercise,newWeight)
+
+}
+
+}
